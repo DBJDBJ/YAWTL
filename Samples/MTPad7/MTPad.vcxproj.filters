@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{04b45627-7756-426a-a46d-d04ab67ba23f}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;hpj;bat;for;f90</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{8bd8cc3a-2ae7-41df-a8a9-28f537fcfb2d}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;fi;fd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{c1c4b8e2-a0fe-43a7-b360-6fcc9d5deb32}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="mtpad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdatl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="aboutdlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="finddlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mainfrm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mtpad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdatl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="view.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\ClosePreviewHH.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\GoToNextHS.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\GoToPreviousHS.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\MTPad.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\MTPadDoc.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\PortraitLandscapeHS.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\printpre.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\PrintPreviewL.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\SelectAllS.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\UndoS.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="mtpad.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="MTPadRibbon.xml" />
+  </ItemGroup>
+</Project>

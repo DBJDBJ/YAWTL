@@ -1,14 +1,14 @@
 #include "stdatl.h"
 
-#include <atlframe.h>
-#include <atlctrls.h>
-#include <atlctrlx.h>
-#include <atldlgs.h>
-#include <atlmisc.h>
-#include <atlctrlw.h>
-#include <atlprint.h>
-#include <atlfind.h>
-#include <atlribbon.h>
+#include "../../Include/atlframe.h"
+#include "../../include/atlctrls.h"
+#include "../../include/atlctrlx.h"
+#include "../../include/atldlgs.h"
+#include "../../include/atlmisc.h"
+#include "../../include/atlctrlw.h"
+#include "../../include/atlprint.h"
+#include "../../include/atlfind.h"
+#include "../../include/atlribbon.h"
 #include "finddlg.h"
 
 #include "MTPadRibbon.h" 
