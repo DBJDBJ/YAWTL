@@ -759,6 +759,11 @@ just with drop  in std::basic_string replacement
 			return val;
 		}
 
+		static std_string_type to_string(int n)
+		{
+				return convert_string( std::to_string(n) );
+		}
+
 		static std::string convert_string(const std::wstring & ws_) {
 			return { ws_.begin(), ws_.end() };
 		}
@@ -888,20 +893,20 @@ public:
 		// }
 	}
 
-	CString(LPCSTR lpsz)
-	{
-		this_data = dbj::convert_string(lpsz); 
-	}
+//	CString(LPCSTR lpsz)
+//	{
+//		this_data = dbj::convert_string(lpsz); 
+//	}
 
 	CString(LPCTSTR lpch, int nLength)
 	{
 		this_data = std_string_type(lpch, nLength);
 	}
 
-	CString(const unsigned char* lpsz)
-	{
-		this_data = std_string_type(dbj::convert_string((char *)lpsz).c_str());
-	}
+//	CString(const TCHAR * lpsz)
+//	{
+//		this_data = std_string_type(lpsz) ;
+//	}
 
 // Attributes & Operations
 	int GetLength() const   // as an array of characters
@@ -956,11 +961,11 @@ public:
 		return *this;
 	}
 
-	CString& operator =(char ch)
-	{
-		this_data = (TCHAR)ch;
-		return *this;
-	}
+//	CString& operator =(char ch)
+//	{
+//		this_data = (TCHAR)ch;
+//		return *this;
+//	}
 
 	CString& operator =(LPCTSTR lpsz)
 	{
@@ -969,17 +974,17 @@ public:
 		return *this;
 	}
 
-	CString& operator =(LPCSTR lpsz)
-	{
-		this_data = std_string_type(dbj::convert_string(lpsz).c_str());
-		return *this;
-	}
+//	CString& operator =(LPCSTR lpsz)
+//	{
+//		this_data = std_string_type(dbj::convert_string(lpsz).c_str());
+//		return *this;
+//	}
 
-	CString& operator =(const unsigned char* lpsz)
-	{
-		this_data = std_string_type(dbj::convert_string((char *)lpsz).c_str());
-		return *this;
-	}
+//	CString& operator =(LPCSTR lpsz)
+//	{
+//		this_data = std_string_type(lpsz);
+//		return *this;
+//	}
 
 	// string concatenation
 	CString& operator +=(const CString& string)
@@ -994,11 +999,11 @@ public:
 		return *this;
 	}
 
-	CString& operator +=(char ch)
-	{
-		this_data += (TCHAR)ch;
-		return *this;
-	}
+//	CString& operator +=(char ch)
+//	{
+//		this_data += (TCHAR)ch;
+//		return *this;
+//	}
 
 	CString& operator +=(LPCTSTR lpsz)
 	{
@@ -1229,7 +1234,7 @@ public:
 	// Concatentation for non strings
 	CString& Append(int n)
 	{
-		this_data +=  dbj::convert_string( std::to_string(n)) ;
+		this_data += dbj::to_string(n);
 		return *this;
 	}
 
@@ -1345,14 +1350,12 @@ public:
 	// ANSI <-> OEM support (convert string in place)
 	void AnsiToOem()
 	{
-		CopyBeforeWrite();
-		::AnsiToOem(m_pchData, m_pchData);
+		::AnsiToOem(& this_data[0] , &this_data[0]);
 	}
 
 	void OemToAnsi()
 	{
-		CopyBeforeWrite();
-		::OemToAnsi(m_pchData, m_pchData);
+		::OemToAnsi(&this_data[0], &this_data[0]);
 	}
 #endif
 
@@ -1363,12 +1366,12 @@ public:
 #if defined(_UNICODE) || defined(OLE2ANSI)
 		BSTR bstr = ::SysAllocStringLen(this_data.c_str(), this_data.size());
 #else
-#error __FILE__ (__LINE__) Only UNICODE please
-		int nLen = MultiByteToWideChar(CP_ACP, 0, m_pchData,
-			GetData()->nDataLength, NULL, NULL);
+#pragma message( __FILE__ " -- NON UNICODE build")
+		int nLen = MultiByteToWideChar(CP_ACP, 0, &this_data[0],
+			GetLength(), NULL, NULL);
 		BSTR bstr = ::SysAllocStringLen(NULL, nLen);
 		if(bstr != NULL)
-			MultiByteToWideChar(CP_ACP, 0, m_pchData, GetData()->nDataLength, bstr, nLen);
+			MultiByteToWideChar(CP_ACP, 0, &this_data[0], GetLength(), bstr, nLen);
 #endif
 		return bstr;
 	}
@@ -1378,11 +1381,11 @@ public:
 #if defined(_UNICODE) || defined(OLE2ANSI)
 		::SysReAllocStringLen(pbstr, this_data.c_str(), this_data.size());
 #else
-#error __FILE__ (__LINE__) Only UNICODE please
-		int nLen = MultiByteToWideChar(CP_ACP, 0, m_pchData,
-			GetData()->nDataLength, NULL, NULL);
+#pragma message( __FILE__ " -- NON UNICODE build")
+		int nLen = MultiByteToWideChar(CP_ACP, 0, &this_data[0],
+			GetLength(), NULL, NULL);
 		if(::SysReAllocStringLen(pbstr, NULL, nLen))
-			MultiByteToWideChar(CP_ACP, 0, m_pchData, GetData()->nDataLength, *pbstr, nLen);
+			MultiByteToWideChar(CP_ACP, 0, &this_data[0], GetLength(), *pbstr, nLen);
 #endif
 		ATLASSERT(*pbstr != NULL);
 		return *pbstr;
@@ -2422,7 +2425,7 @@ public:
 	{
 		ATLASSERT(m_hFind != NULL);
 
-		_CSTRING_NS::CString strResult("file://");
+		_CSTRING_NS::CString strResult( _T("file://"));
 		strResult += GetFilePath();
 		return strResult;
 	}
