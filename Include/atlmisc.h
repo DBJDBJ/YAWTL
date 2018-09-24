@@ -921,27 +921,19 @@ public:
 
 	TCHAR GetAt(int nIndex) const   // 0 based
 	{
-		ATLASSERT(nIndex >= 0);
-		ATLASSERT(nIndex < this->GetLength() );
-		// std::out_of_range will be thrown on invalid access.
-		// in release builds
+		dbj::fence_(nIndex, 0, GetLength());
 		return this_data.at(nIndex);
 	}
 
 	TCHAR operator [](int nIndex) const   // same as GetAt
 	{
-		// same as GetAt
-		ATLASSERT(nIndex >= 0);
-		ATLASSERT(nIndex < this->GetLength());
-		// std::out_of_range will be thrown on invalid access.
-		// in release builds
+		dbj::fence_(nIndex, 0, GetLength());
 		return this_data.at(nIndex);
 	}
 
 	void SetAt(int nIndex, TCHAR ch)
 	{
-		ATLASSERT(nIndex >= 0);
-		ATLASSERT(nIndex < this->GetLength());
+		dbj::fence_(nIndex, 0, GetLength());
 		this_data[nIndex] = ch;
 	}
 
@@ -972,7 +964,7 @@ public:
 
 	CString& operator =(LPCTSTR lpsz)
 	{
-		ATLASSERT(lpsz == NULL || _IsValidString(lpsz));
+		ATLASSERT(_IsValidString(lpsz));
 		this_data = lpsz;
 		return *this;
 	}
@@ -1010,7 +1002,7 @@ public:
 
 	CString& operator +=(LPCTSTR lpsz)
 	{
-		ATLASSERT(lpsz == NULL || _IsValidString(lpsz));
+		ATLASSERT(_IsValidString(lpsz));
 		this_data.append( lpsz );
 		return *this;
 	}
